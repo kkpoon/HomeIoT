@@ -1,0 +1,58 @@
+author: kkpoon
+description: IoT project of my Home
+# arch: PLATFORM
+version: 1.0
+manifest_version: 2017-05-18
+libs_version: ${mos.version}
+modules_version: ${mos.version}
+mongoose_os_version: ${mos.version}
+
+config_schema:
+  - ["pins", "o", {title: "Pins layout"}]
+  - ["pins.led", "i", -1, {title: "LED GPIO pin"}]
+  - ["pins.button", "i", -1, {title: "Button GPIO pin"}]
+
+conds:
+  - when: mos.platform == "esp32"
+    apply:
+      config_schema:
+        - ["pins.led", 21]
+        - ["pins.button", 0]
+  - when: mos.platform == "esp8266"
+    apply:
+      config_schema:
+        - ["pins.led", 2]
+        - ["pins.button", 0]
+  - when: mos.platform == "cc3200"
+    apply:
+      config_schema:
+        - ["pins.led", 64]
+        - ["pins.button", 15]
+  - when: mos.platform == "cc3220"
+    apply:
+      config_schema:
+        - ["pins.led", 64]
+        - ["pins.button", 15]
+
+tags:
+  - js
+  - aws
+  - iot
+  - cloud
+
+filesystem:
+  - fs
+
+libs:
+  - origin: https://github.com/mongoose-os-libs/aws
+  - origin: https://github.com/mongoose-os-libs/ca-bundle
+  - origin: https://github.com/mongoose-os-libs/dash
+  - origin: https://github.com/mongoose-os-libs/dht
+  - origin: https://github.com/mongoose-os-libs/mjs
+  - origin: https://github.com/mongoose-os-libs/ota-shadow
+  - origin: https://github.com/mongoose-os-libs/rpc-service-config
+  - origin: https://github.com/mongoose-os-libs/rpc-service-fs
+  - origin: https://github.com/mongoose-os-libs/rpc-uart
+  - origin: https://github.com/mongoose-os-libs/shadow
+  - origin: https://github.com/mongoose-os-libs/sntp
+  - origin: https://github.com/mongoose-os-libs/wifi
